@@ -15,6 +15,19 @@ st.set_page_config(
     }
 )
 
+@st.cache
+def fetch_game_stats(game, team, season): 
+    url = "https://api-nba-v1.p.rapidapi.com/players/statistics"
+    querystring = {"game":  game,
+                   "team":   team,
+                   "season": season}
+    headers = {
+        "X-RapidAPI-Key": "9cdadb6101msh43ca9ce6309ef1cp1eaa38jsnd2282ee396fe",
+        "X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
+    }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    return response.json()
+
 st.title("The Miami Heat Project")
 st.header("Designed by Edlando Eliacin")
 
@@ -37,16 +50,8 @@ if sidebar_selections == "Interesting Heat Facts":
 
     st.subheader("Miami Heat Total Points Per Player in Miami Heat Vs. Orlando Magic - 10/25/2021")
 
-    url = "https://api-nba-v1.p.rapidapi.com/players/statistics"
-    querystring = {"game":  "9610",
-                   "team":   "20",
-                   "season": "2021"}
-    headers = {
-        "X-RapidAPI-Key": "9cdadb6101msh43ca9ce6309ef1cp1eaa38jsnd2282ee396fe",
-        "X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
-    }
-    response = requests.request("GET", url, headers=headers, params=querystring).json()
-
+    response = fetch_game_stats("9610", "20", "2021")
+    
     players = []
     total_points = []
     total_rebounds = []
