@@ -22,7 +22,7 @@ def fetch_game_stats(game, team, season):
                    "team":   team,
                    "season": season}
     headers = {
-        "X-RapidAPI-Key": st.secrets["RAPIDAPI_API_KEY"],
+        "X-RapidAPI-Key": st.secrets["api_key"],
         "X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
