@@ -15,7 +15,6 @@ st.set_page_config(
     }
 )
 
-@st.cache
 def fetch_game_stats(game, team, season): 
     url = "https://api-nba-v1.p.rapidapi.com/players/statistics"
     querystring = {"game":  game,
